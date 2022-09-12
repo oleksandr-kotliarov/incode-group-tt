@@ -1,13 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { memo } from 'react';
+import { IssuesField } from './components/IssuesField';
+import { LinkInput } from './components/LinkInput';
+import { Navigation } from './components/Navigation';
+import { Col, Row } from 'antd';
 
-function App() {
+import './App.scss';
+
+export const App: React.FC = memo(() => {
   return (
     <div className="App">
-      <h1>Kanban Board</h1>
+      <LinkInput />
+      <Navigation />
+      <Row gutter={60}>
+        <Col span={8}>
+          <IssuesField title="Todos" />
+        </Col>
+        <Col span={8}>
+          <IssuesField title="In Progress" />
+        </Col>
+        <Col span={8}>
+          <IssuesField title="Done" />
+        </Col>
+      </Row>
     </div>
   );
-}
-
-export default App;
+});
