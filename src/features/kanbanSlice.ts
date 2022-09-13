@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Issue } from '../types/Issue';
 import { v4 as uuidv4 } from 'uuid';
+import { cp } from 'fs';
+import { useAppSelector } from '../app/hooks';
 
 interface KanbanField {
   id: string;
@@ -9,8 +11,8 @@ interface KanbanField {
 }
 
 interface SetActionPayload {
-  col: number;
-  tasks: Issue[]
+  col: number[];
+  tasks: Issue[][];
 }
 
 export type KanbanState = KanbanField[];
@@ -38,8 +40,13 @@ export const kanbanSlice = createSlice({
   initialState,
   reducers: {
     setKanban: (state, actions: { payload: SetActionPayload }) => {
+      
+
       const { col, tasks } = actions.payload;
-      state[col].tasks = tasks;
+      
+      col.forEach((col, index) => {
+        state[col].tasks = tasks[index];
+      });
     },
   },
 });
