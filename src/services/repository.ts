@@ -10,7 +10,7 @@ export const repositoryApi = createApi({
     getRepositoryByRepo: builder.query<Repository, string>({
       query: ENDPOINTS.repository,
     }),
-    getIssuesByRepo: builder.query<Issue, string>({
+    getIssuesByRepo: builder.query<Issue[], string>({
       query: ENDPOINTS.issues,
     }),
   }),

@@ -1,51 +1,54 @@
 import { Paper } from '@mui/material';
-import React, { FC, memo, useEffect, useState } from 'react';
+import React, { FC, memo } from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { setKanbanTodos } from '../features/kanbanSlice';
-import { useGetIssuesByRepoQuery } from '../services/repository';
+import { setKanban } from '../features/kanbanSlice';
 import { Col, Row } from 'antd';
 import { IssueCard } from './IssueCard';
 
 export const KanbanBoard: FC = memo(() => {
-  const initialKanban = useAppSelector((state) => state.kanban);
-  const [kanban, setKanban] = useState(initialKanban);
-  const { data } = useGetIssuesByRepoQuery('facebook/react');
-
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(setKanbanTodos(data));
-  }, [data]);
-
-  useEffect(() => {
-    setKanban(initialKanban);
-  }, [initialKanban]);
+  const { kanban } = useAppSelector((state) => state);
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
 
     if (destination !== undefined) {
-      const sourceColIndex = kanban.findIndex((col) => col.id === source.droppableId);
-      const sourceCol = kanban[sourceColIndex];
-      console.log(sourceCol);
+      if (source.droppableId !== destination.droppableId) {
+        const sourceColIndex = kanban.findIndex((col) => col.id === source.droppableId);
+        const destinationColIndex = kanban.findIndex((col) => col.id === destination.droppableId);
 
-      const sourceTask = [...sourceCol.tasks];
-      const [removed] = sourceTask.splice(source.index, 1);
+        const sourceCol = kanban[sourceColIndex];
+        const destinationCol = kanban[destinationColIndex];
 
-      sourceTask.splice(destination.index, 0, removed);
+        const sourceTask = [...sourceCol.tasks];
+        const destinationTask = [...destinationCol.tasks];
 
-      const editedCol = {
-        ...kanban[sourceColIndex],
-        tasks: sourceTask,
-      };
+        const [removed] = sourceTask.splice(source.index, 1);
 
-      const tempKanban = [...kanban];
-      tempKanban.splice(sourceColIndex, 1, editedCol);
+        destinationTask.splice(destination.index, 0, removed);
 
-      setKanban(tempKanban);
+        dispatch(setKanban({ col: sourceColIndex, tasks: sourceTask }));
+        dispatch(setKanban({ col: destinationColIndex, tasks: destinationTask }));
+      } else {
+        const sourceColIndex = kanban.findIndex((col) => col.id === source.droppableId);
+        const sourceCol = kanban[sourceColIndex];
+
+        const sourceTask = [...sourceCol.tasks];
+        const [removed] = sourceTask.splice(source.index, 1);
+
+        sourceTask.splice(destination.index, 0, removed);
+
+        const editedCol = {
+          ...kanban[sourceColIndex],
+          tasks: sourceTask,
+        };
+
+        dispatch(setKanban({ col: sourceColIndex, tasks: editedCol.tasks }));
+      }
     }
   };
+  
 
   return (
     <Row gutter={60}>

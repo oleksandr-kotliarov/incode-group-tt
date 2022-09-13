@@ -8,6 +8,11 @@ interface KanbanField {
   tasks: Issue[];
 }
 
+interface SetActionPayload {
+  col: number;
+  tasks: Issue[]
+}
+
 export type KanbanState = KanbanField[];
 
 const initialState: KanbanState = [
@@ -32,22 +37,13 @@ export const kanbanSlice = createSlice({
   name: 'kanban',
   initialState,
   reducers: {
-    setKanban: (state, actions) => {
-      state = actions.payload;
+    setKanban: (state, actions: { payload: SetActionPayload }) => {
+      const { col, tasks } = actions.payload;
+      state[col].tasks = tasks;
     },
-
-    setKanbanTodos: (state, actions) => {
-      const todos = state[0];
-
-      if (actions.payload) {
-        todos.tasks = actions.payload;
-      }
-
-      state = [todos, ...state.slice(1)];
-    }
   },
 });
 
-export const { setKanban, setKanbanTodos } = kanbanSlice.actions;
+export const { setKanban } = kanbanSlice.actions;
 
 export default kanbanSlice.reducer;

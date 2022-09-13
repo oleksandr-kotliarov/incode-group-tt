@@ -13,7 +13,7 @@ export const IssueCard: React.FC<Props> = memo((props: Props) => {
 
   const createdAt = new Date(task.created_at);
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ marginBottom: '10px' }}>
       <CardContent>
         <Typography variant="h5" component="div">
           {task.title}
