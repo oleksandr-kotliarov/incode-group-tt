@@ -1,20 +1,27 @@
 import React, { memo } from 'react';
 import { Breadcrumb } from 'antd';
 import { StarOutlined } from '@ant-design/icons';
+import { useGetRepositoryByRepoQuery } from '../services/repository';
 
 export const Navigation: React.FC = memo(() => {
+  const { data } = useGetRepositoryByRepoQuery('facebook/react');
+
   return (
     <Breadcrumb>
-      <Breadcrumb.Item>
-        <a href="">Facebook</a>
-      </Breadcrumb.Item>
-      <Breadcrumb.Item>
-        <a href="">React</a>
-      </Breadcrumb.Item>
-      <Breadcrumb.Item>
-        <StarOutlined />
-        100k stars
-      </Breadcrumb.Item>
+      {data && (
+        <>
+          <Breadcrumb.Item>
+            <a href={data.owner.html_url}>{data.owner.login}</a>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <a href={data.html_url}>{data.name}</a>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <StarOutlined />
+            {`${data.stargazers_count} stars`}
+          </Breadcrumb.Item>
+        </>
+      )}
     </Breadcrumb>
   );
 });
