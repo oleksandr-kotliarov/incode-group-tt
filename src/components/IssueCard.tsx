@@ -22,7 +22,10 @@ export const IssueCard: React.FC<Props> = memo((props: Props) => {
           <a href={task.user.html_url}>{task.user.login}</a>
         </Typography>
         <Typography variant="body2">
-          {`#${task.number} ${createdAt.toString()}`}
+          {`#${task.number}`}
+        </Typography>
+        <Typography variant="body2">
+          {createdAt.toDateString()}
         </Typography>
         <Typography variant="body2">
           {`Comments: ${task.comments}`}
