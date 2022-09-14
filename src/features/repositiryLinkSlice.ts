@@ -5,7 +5,7 @@ interface RepositoryLinkState {
 }
 
 const initialState: RepositoryLinkState = {
-  link: '',
+  link: localStorage.getItem('lastLink') || '',
 };
 
 export const repositoryLinkSlice = createSlice({

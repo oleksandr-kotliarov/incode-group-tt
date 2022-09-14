@@ -1,11 +1,13 @@
 {
   "name": "incode-group-tt",
+  "homepage": "https://oleksandr-kotliarov.github.io/incode-group-tt",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@jest/globals": "^29.0.3",
     "@mui/material": "^5.10.5",
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.5",
@@ -17,6 +19,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-redux": "^7.1.24",
     "antd": "^4.23.1",
+    "axios": "^0.27.2",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",

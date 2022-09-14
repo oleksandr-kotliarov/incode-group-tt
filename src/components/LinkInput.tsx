@@ -15,13 +15,15 @@ export const LinkInput: React.FC = memo(() => {
     const formatedLink = formatLink(link);
 
     dispatch(setRepositoryLink(formatedLink));
+
+    setLink('');
   }, [link, formatLink]);
 
   return (
     <Row gutter={12}>
       <Col span={8}>
         <TextField 
-          id="outlined-basic" 
+          id="input" 
           label="Enter repo URL" 
           variant="outlined"
           size="small"

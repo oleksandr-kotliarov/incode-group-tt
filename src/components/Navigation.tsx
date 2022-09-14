@@ -4,22 +4,33 @@ import { StarOutlined } from '@ant-design/icons';
 import { useGetRepositoryByRepoQuery } from '../services/repository';
 import { capitalize } from '../utils/capitalize';
 import { formatStars } from '../utils/formatStars';
-import { useAppSelector } from '../app/hooks';
 
 export const Navigation: React.FC = memo(() => {
-  const { link } = useAppSelector((state) => state.repositoryLink);
+  const link = localStorage.getItem('lastLink');
 
-  const { data } = useGetRepositoryByRepoQuery(link);
+  const { data } = useGetRepositoryByRepoQuery(link || '');
 
   return (
     <Breadcrumb>
       {data && (
         <>
           <Breadcrumb.Item>
-            <a href={data.owner.html_url}>{capitalize(data.owner.login)}</a>
+            <a 
+              href={data.owner.html_url} 
+              target="_blank" 
+              rel="noreferrer noopener"
+            >
+              {capitalize(data.owner.login)}
+            </a>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            <a href={data.html_url}>{capitalize(data.name)}</a>
+            <a 
+              href={data.html_url} 
+              target="_blank" 
+              rel="noreferrer noopener"
+            >
+              {capitalize(data.name)}
+            </a>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <StarOutlined />
