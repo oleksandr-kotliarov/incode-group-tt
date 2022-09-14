@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/incode-group-tt/static/css/main.ca05c991.css",
+    "main.js": "/incode-group-tt/static/js/main.21207c1f.js",
+    "index.html": "/incode-group-tt/index.html",
+    "main.ca05c991.css.map": "/incode-group-tt/static/css/main.ca05c991.css.map",
+    "main.21207c1f.js.map": "/incode-group-tt/static/js/main.21207c1f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ca05c991.css",
+    "static/js/main.21207c1f.js"
+  ]
+}
