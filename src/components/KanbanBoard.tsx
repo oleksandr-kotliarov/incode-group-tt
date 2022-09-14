@@ -38,7 +38,11 @@ export const KanbanBoard: React.FC = memo(() => {
         destinationTask.splice(destination.index, 0, removed);
 
         dispatch(
-          setKanban({ col: [destinationColIndex], tasks: [destinationTask], link }),
+          setKanban({
+            col: [destinationColIndex],
+            tasks: [destinationTask],
+            link,
+          }),
         );
       } else {
         sourceTask.splice(destination.index, 0, removed);

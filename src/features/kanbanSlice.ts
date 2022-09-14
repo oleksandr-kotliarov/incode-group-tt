@@ -36,7 +36,7 @@ const initialState: KanbanState = [
     id: uuidv4(),
     title: 'Done',
     tasks: [],
-  }
+  },
 ];
 
 export const kanbanSlice = createSlice({
@@ -64,31 +64,27 @@ export const kanbanSlice = createSlice({
 
         localStorage.setItem(
           'issues',
-          JSON.stringify(
-            {
-              ...issues,
-              [link]: state,
-            } 
-          )
+          JSON.stringify({
+            ...issues,
+            [link]: state,
+          }),
         );
       }
     },
     setKanban: (state, actions: { payload: SetActionPayload }) => {
       const issues = JSON.parse(localStorage.getItem('issues') || '{}');
       const { col, tasks, link } = actions.payload;
-      
+
       col.forEach((col, index) => {
         state[col].tasks = tasks[index];
       });
 
       localStorage.setItem(
         'issues',
-        JSON.stringify(
-          {
-            ...issues,
-            [link]: state,
-          }
-        ),
+        JSON.stringify({
+          ...issues,
+          [link]: state,
+        }),
       );
     },
   },

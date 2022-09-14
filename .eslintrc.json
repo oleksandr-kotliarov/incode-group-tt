@@ -36,6 +36,7 @@
             "error",
             "always"
         ],
-        "react/display-name": "off"
+        "react/display-name": "off",
+        "no-unused-vars": "error"
     }
 }
